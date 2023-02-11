@@ -5,5 +5,10 @@ module.exports = {
     extend: {
       opacity: ['disabled']
     }
+  },
+  theme: {
+    fontFamily: {
+      sans: ['Itim', 'cursive']
+    }
   }
 }

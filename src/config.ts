@@ -1,0 +1,2 @@
+export const NUMBER_OF_LATEST_BLOCK = 10
+export const NUMBER_OF_LATEST_TRANSACTION = 10

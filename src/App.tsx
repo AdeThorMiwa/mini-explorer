@@ -1,61 +1,41 @@
-import React, { ReactElement, useState } from 'react'
-import logo from './logo.svg'
+import { Fragment, ReactElement, useMemo } from 'react'
+import Header from './components/Header'
+import { Link, BrowserRouter } from 'react-router-dom'
+import Routes from './routes'
 
 function App(): ReactElement {
-  const [count, setCount] = useState(0)
+  const links = useMemo(
+    () => [
+      { text: 'Home', url: '/' },
+      { text: 'Nft Page', url: '/nft' },
+      { text: 'Tx Page', url: '/tx' },
+      { text: 'Address Page', url: '/address' }
+    ],
+    []
+  )
 
   return (
-    <div className="border border-gray-50 rounded-xl p-20 shadow-xl">
-      <header>
-        <div className="flex justify-center">
-          <img src={logo} className="h-32 w-32 animate-spin-slow" alt="logo" />
+    <BrowserRouter>
+      <Fragment>
+        <Header />
+        <div className="flex max-w-[70%] mx-auto mt-5 gap-5 items-start">
+          <aside className="flex flex-col min-w-[200px] text-white overflow-hidden rounded-md">
+            {links.map((link, i) => (
+              <Link
+                key={i}
+                to={link.url}
+                className="w-full border-b px-5 py-3 bg-zinc-600 hover:bg-zinc-400"
+              >
+                {link.text}
+              </Link>
+            ))}
+          </aside>
+          <main className="grow">
+            <Routes />
+          </main>
         </div>
-        <p className="text-2xl pb-3">Hello Vite + React + tailwindcss!</p>
-        <p>
-          <button
-            className="bg-purple-400 pl-2 pr-2 pt-1 pb-1 rounded text-sm text-purple-100"
-            onClick={() => setCount((count) => count + 1)}
-          >
-            count is: {count}
-          </button>
-        </p>
-        <p className="pb-3 pt-3">
-          Edit{' '}
-          <code className="border border-1 pl-1 pr-1 pb-0.5 pt-0.5 rounded border-purple-400 font-mono text-sm bg-purple-100 text-purple-900">
-            src/App.tsx
-          </code>{' '}
-          and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="text-purple-400 underline"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="text-purple-400 underline"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-          {' | '}
-          <a
-            className="text-purple-400 underline"
-            href="https://tailwindcss.com/docs"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            tailwindcss Docs
-          </a>
-        </p>
-      </header>
-    </div>
+      </Fragment>
+    </BrowserRouter>
   )
 }
 
